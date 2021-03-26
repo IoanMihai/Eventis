@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView eventList;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private FloatingActionButton floatingActionButton;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
