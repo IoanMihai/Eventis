@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "644874500185",
+    "project_id": "eventis-94a32",
+    "storage_bucket": "eventis-94a32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644874500185:android:36af6b91581e27780c9948",
+        "android_client_info": {
+          "package_name": "com.ioanmihai.eventis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644874500185-dj35hvoomhu1918gptmk30h78gsepr0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVf0axkipCSxOqPFrBeLnyGuBcqHi2Dlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644874500185-dj35hvoomhu1918gptmk30h78gsepr0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
