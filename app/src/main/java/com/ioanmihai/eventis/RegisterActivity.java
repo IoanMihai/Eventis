@@ -3,6 +3,7 @@ package com.ioanmihai.eventis;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,11 +26,12 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText email, password, confPassword;
-    Button btn_register;
+    private EditText email, password, confPassword;
+    private Button btn_register;
+    private ProgressDialog loadingBar;
 
-    FirebaseAuth auth;
-    DatabaseReference reference;
+    private FirebaseAuth auth;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.register_password);
         confPassword = findViewById(R.id.register_confirm_password);
         btn_register = findViewById(R.id.register_create_account);
+        loadingBar = new ProgressDialog(this);
 
         auth = FirebaseAuth.getInstance();
 
@@ -66,37 +69,42 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+/*    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null){
+            SendUserToMainActivity();
+        }
+    }*/
+
     private void register(String txt_email, String txt_password) {
+        loadingBar.setTitle("Creating New Account");
+        loadingBar.setMessage("Please wait, while we are creating your new account...");
+        loadingBar.show();
+        loadingBar.setCanceledOnTouchOutside(true);
         auth.createUserWithEmailAndPassword(txt_email, txt_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    FirebaseUser firebaseUser = auth.getCurrentUser();
-                    assert firebaseUser != null;
-                    String userid = firebaseUser.getUid();
+                if (task.isSuccessful()) {
+                    SendUserToMainActivity();
 
-                    reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("id", userid);
-                    hashMap.put("username", "default");
-                    hashMap.put("imageURL", "default");
-
-                    reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    });
+                    Toast.makeText(RegisterActivity.this, "You are authenticated succesfully...", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
                 }else{
-                    Toast.makeText(RegisterActivity.this, "You can't register with this email or password", Toast.LENGTH_SHORT).show();
+                    String message = task.getException().getMessage();
+                    Toast.makeText(RegisterActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
                 }
             }
         });
+    }
+
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }
