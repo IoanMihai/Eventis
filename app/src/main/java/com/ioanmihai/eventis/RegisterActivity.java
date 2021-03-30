@@ -88,7 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    SendUserToMainActivity();
+                    // SendUserToMainActivity();
+                    SendUserToSetupActivity();
 
                     Toast.makeText(RegisterActivity.this, "You are authenticated succesfully...", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
@@ -105,6 +106,13 @@ public class RegisterActivity extends AppCompatActivity {
         Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
+        finish();
+    }
+
+    private void SendUserToSetupActivity() {
+        Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
         finish();
     }
 }
