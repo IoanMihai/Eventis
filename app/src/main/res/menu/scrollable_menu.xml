@@ -16,6 +16,11 @@
         android:icon="@drawable/ic_future_events_foreground"/>
 
     <item
+        android:id="@+id/nav_about"
+        android:title="About"
+        android:icon="@drawable/ic_about_foreground"/>
+
+    <item
         android:id="@+id/nav_logout"
         android:title="Logout"
         android:icon="@drawable/ic_logout_foreground"/>
