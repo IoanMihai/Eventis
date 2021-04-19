@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.scrollableMenu);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
         drawerLayout = findViewById(R.id.parent);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -85,6 +86,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendUserToPostActivity();
+            }
+        });
+
+    }
+
+    private void SendUserToPostActivity() {
+        Intent intent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(intent);
     }
 
     @Override

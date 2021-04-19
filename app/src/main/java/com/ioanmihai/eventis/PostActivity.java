@@ -40,11 +40,11 @@ import java.util.HashMap;
 public class PostActivity extends AppCompatActivity {
 
     private Button postButton;
-    private EditText postEdit;
+    private EditText postEdit, titleEdit;
     private ProgressDialog loadingBar;
     private ImageButton selectEventImage;
-    private String Description;
-    private RadioButton checkGames, checkMusic, checkPolitical, checkNature, checkOther;
+    private String Description, Title;
+    private CheckBox checkGames, checkMusic, checkPolitical, checkNature, checkOther;
     private Uri ImageUri;
 
     private static final int Gallery_Pick = 1;
@@ -69,6 +69,7 @@ public class PostActivity extends AppCompatActivity {
 
         selectEventImage = findViewById(R.id.eventImage);
         postButton = findViewById(R.id.post_next_button);
+        titleEdit = findViewById(R.id.titleEdit);
         postEdit = findViewById(R.id.descriptionEdit);
         loadingBar = new ProgressDialog(this);
         checkGames = findViewById(R.id.checkboxGames);
@@ -94,13 +95,8 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void ValidateEventInfo() {
+        Title = titleEdit.getText().toString();
         Description = postEdit.getText().toString();
-
-        boolean games = checkGames.isChecked();
-        boolean music = checkMusic.isChecked();
-        boolean political = checkPolitical.isChecked();
-        boolean nature = checkNature.isChecked();
-        boolean other = checkOther.isChecked();
         int nr = 0;
         if (checkGames.isChecked()){
             nr ++;
@@ -124,6 +120,10 @@ public class PostActivity extends AppCompatActivity {
             Toast.makeText(this, "Please say something about your event...", Toast.LENGTH_SHORT).show();
         }else if (nr == 0){
             Toast.makeText(this, "Please tell us what kind of event this is...", Toast.LENGTH_SHORT).show();
+        }else if (nr > 1){
+            Toast.makeText(this, "Please select only one type of event...", Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(Title)){
+            Toast.makeText(this, "Please select a title for your event...", Toast.LENGTH_SHORT).show();
         }else{
             loadingBar.setTitle("Saving Information");
             loadingBar.setMessage("Please wait, while we are creating your new event...");
@@ -169,20 +169,32 @@ public class PostActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     String userFullName = snapshot.child("fullname").getValue().toString();
 
+                    boolean games = checkGames.isChecked();
+                    boolean music = checkMusic.isChecked();
+                    boolean political = checkPolitical.isChecked();
+                    boolean nature = checkNature.isChecked();
+                    boolean other = checkOther.isChecked();
+
                     HashMap eventsMap = new HashMap();
                     eventsMap.put("uid", current_user_id);
                     eventsMap.put("date", saveCurrentDate);
                     eventsMap.put("time", saveCurrentTime);
                     eventsMap.put("description", Description);
+                    eventsMap.put("title", Title);
                     eventsMap.put("postimage", downloadUrl);
                     eventsMap.put("fullname", userFullName);
+                    eventsMap.put("games", games);
+                    eventsMap.put("music", music);
+                    eventsMap.put("political", political);
+                    eventsMap.put("nature", nature); 
+                    eventsMap.put("other", other);
 
                     EventsRef.child(current_user_id + eventRandomName).updateChildren(eventsMap)
                             .addOnCompleteListener(new OnCompleteListener() {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
                                     if (task.isSuccessful()){
-                                        //SendUserToTimeActivity();
+                                        SendUserToTimeActivity();
                                         loadingBar.dismiss();
                                     }else{
                                         Toast.makeText(PostActivity.this, "Error occured while updating your event", Toast.LENGTH_SHORT).show();
@@ -198,6 +210,14 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void SendUserToTimeActivity() {
+        Intent intent = new Intent(PostActivity.this, TimeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("eventname", eventRandomName);
+        intent.putExtra("bundle", bundle);
+        startActivity(intent);
     }
 
     private void OpenGallery() {
@@ -220,7 +240,7 @@ public class PostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home){
-            //SendUserToTimeActivity();
+            SendUserToTimeActivity();
         }
         return super.onOptionsItemSelected(item);
     }

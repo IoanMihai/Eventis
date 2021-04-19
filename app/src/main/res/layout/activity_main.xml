@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:layout_gravity="end|bottom"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_add_event_foreground"/>
 
         </FrameLayout>
     </RelativeLayout>
