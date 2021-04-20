@@ -1,8 +1,5 @@
 package com.ioanmihai.eventis;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -14,20 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email, password, confPassword;
-    private Button btn_register;
+    private Button btn_register, btn_login;
     private ProgressDialog loadingBar;
 
     private FirebaseAuth auth;
@@ -42,11 +38,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_register);
 
-        email = findViewById(R.id.register_email);
-        password = findViewById(R.id.register_password);
+        email = findViewById(R.id.login_email);
+        password = findViewById(R.id.login_password);
         confPassword = findViewById(R.id.register_confirm_password);
-        btn_register = findViewById(R.id.register_create_account);
+        btn_register = findViewById(R.id.login_login);
         loadingBar = new ProgressDialog(this);
+        btn_login = findViewById(R.id.login_here);
 
         auth = FirebaseAuth.getInstance();
 
@@ -67,6 +64,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendUserToLoginActivity();
+            }
+        });
+
     }
 
 /*    @Override
@@ -113,6 +118,13 @@ public class RegisterActivity extends AppCompatActivity {
         Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
+        finish();
+    }
+
+    private void SendUserToLoginActivity() {
+        Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
         finish();
     }
 }
