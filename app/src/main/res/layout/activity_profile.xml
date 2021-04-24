@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <TextView
+        android:id="@+id/my_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Profile"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_profile"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
+
+    <TextView
+        android:id="@+id/fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fullname"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Email"
+        android:textSize="17sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventsRelLayout"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="70dp">
+
+
+            <CheckBox
+                android:id="@+id/checkboxGames"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Games"
+                android:checked="false"
+                android:clickable="false"/>
+
+            <CheckBox
+                android:id="@+id/checkboxMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Music"
+                android:layout_toRightOf="@+id/checkboxGames"
+                android:layout_marginLeft="15dp"
+                android:clickable="false"/>
+
+            <CheckBox
+                android:id="@+id/checkboxPolitical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Political"
+                android:layout_toRightOf="@+id/checkboxMusic"
+                android:layout_marginLeft="15dp"
+                android:clickable="false"/>
+
+            <CheckBox
+                android:id="@+id/checkboxNature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nature"
+                android:layout_below="@+id/checkboxGames"
+                android:clickable="false"/>
+
+            <CheckBox
+                android:id="@+id/checkboxOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:layout_toRightOf="@+id/checkboxNature"
+                android:layout_below="@+id/checkboxGames"
+                android:layout_marginLeft="15dp"
+                android:clickable="false"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button"
+        android:text="Edit profile"/>
+
+</RelativeLayout>

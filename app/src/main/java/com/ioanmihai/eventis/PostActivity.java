@@ -15,10 +15,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -175,7 +171,7 @@ public class PostActivity extends AppCompatActivity {
                     boolean nature = checkNature.isChecked();
                     boolean other = checkOther.isChecked();
 
-                    HashMap eventsMap = new HashMap();
+                    HashMap<String, Object> eventsMap = new HashMap<>();
                     eventsMap.put("uid", current_user_id);
                     eventsMap.put("date", saveCurrentDate);
                     eventsMap.put("time", saveCurrentTime);

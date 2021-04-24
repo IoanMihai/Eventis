@@ -111,7 +111,7 @@ public class SetupActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()){
                         SendUserToMainActivity();
-                        Toast.makeText(SetupActivity.this, "Your account was created successfully.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SetupActivity.this, "Your account was updated successfully.", Toast.LENGTH_LONG).show();
                         loadingBar.dismiss();
                     }else{
                         String message = task.getException().getMessage();
