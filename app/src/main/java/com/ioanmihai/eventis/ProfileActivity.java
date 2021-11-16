@@ -21,7 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView txtName, txtEmail;
     private Button btnEdit;
-    private CheckBox games, nature, music, political, other;
+    private CheckBox games, nature, music, political, other, checkWebinar, checkConference, checkTech, checkBusiness;
     private String currentUserID;
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
@@ -40,6 +40,10 @@ public class ProfileActivity extends AppCompatActivity {
         music = findViewById(R.id.checkboxMusic);
         political = findViewById(R.id.checkboxPolitical);
         other = findViewById(R.id.checkboxOther);
+        checkWebinar = findViewById(R.id.checkboxWebinar);
+        checkConference = findViewById(R.id.checkboxConference);
+        checkTech = findViewById(R.id.checkboxTech);
+        checkBusiness = findViewById(R.id.checkboxBusiness);
 
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -63,6 +67,14 @@ public class ProfileActivity extends AppCompatActivity {
                     political.setChecked(ok);
                     ok = (boolean) snapshot.child("other").getValue();
                     other.setChecked(ok);
+                    ok = (boolean) snapshot.child("webinar").getValue();
+                    checkWebinar.setChecked(ok);
+                    ok = (boolean) snapshot.child("conference").getValue();
+                    checkConference.setChecked(ok);
+                    ok = (boolean) snapshot.child("business").getValue();
+                    checkBusiness.setChecked(ok);
+                    ok = (boolean) snapshot.child("tech").getValue();
+                    checkTech.setChecked(ok);
                     String mail = mAuth.getCurrentUser().getEmail();
                     txtEmail.setText("Email: "+ mail);
                 }

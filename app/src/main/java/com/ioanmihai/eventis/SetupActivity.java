@@ -33,7 +33,7 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
     private ProgressDialog loadingBar;
-    private CheckBox checkGames, checkMusic, checkPolitical, checkNature, checkOther;
+    private CheckBox checkGames, checkMusic, checkPolitical, checkNature, checkOther, checkWebinar, checkConference, checkTech, checkBusiness;
 
     String currentUserID;
 
@@ -44,13 +44,17 @@ public class SetupActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         SaveInfo = findViewById(R.id.setup_button);
         checkGames = findViewById(R.id.checkboxGames);
         checkMusic = findViewById(R.id.checkboxMusic);
         checkPolitical = findViewById(R.id.checkboxPolitical);
         checkNature = findViewById(R.id.checkboxNature);
         checkOther = findViewById(R.id.checkboxOther);
+        checkWebinar = findViewById(R.id.checkboxWebinar);
+        checkConference = findViewById(R.id.checkboxConference);
+        checkTech = findViewById(R.id.checkboxTech);
+        checkBusiness = findViewById(R.id.checkboxBusiness);
 
         FullName = findViewById(R.id.setup_fullname);
         loadingBar = new ProgressDialog(this);
@@ -71,6 +75,11 @@ public class SetupActivity extends AppCompatActivity {
         boolean political = checkPolitical.isChecked();
         boolean nature = checkNature.isChecked();
         boolean other = checkOther.isChecked();
+        boolean business = checkBusiness.isChecked();
+        boolean conferece = checkConference.isChecked();
+        boolean webinar = checkWebinar.isChecked();
+        boolean tech = checkTech.isChecked();
+
         int nr = 0;
         if (checkGames.isChecked()){
             nr ++;
@@ -85,6 +94,18 @@ public class SetupActivity extends AppCompatActivity {
             nr ++;
         }
         if (checkOther.isChecked()){
+            nr ++;
+        }
+        if (checkBusiness.isChecked()){
+            nr ++;
+        }
+        if (checkTech.isChecked()){
+            nr ++;
+        }
+        if (checkConference.isChecked()){
+            nr ++;
+        }
+        if (checkWebinar.isChecked()){
             nr ++;
         }
 
@@ -105,8 +126,12 @@ public class SetupActivity extends AppCompatActivity {
             userMap.put("political", political);
             userMap.put("nature", nature);
             userMap.put("other", other);
+            userMap.put("business", business);
+            userMap.put("tech", tech);
+            userMap.put("webinar", webinar);
+            userMap.put("conference", conferece);
 
-            UsersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+            UsersRef.child(currentUserID).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()){

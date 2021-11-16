@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TimeActivity">
+    tools:context=".TimeActivity"
+    android:orientation="vertical">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/timeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,37 +15,72 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"/>-->
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        app:counterEnabled="true"
+        app:counterMaxLength="140">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/event_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/dateButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timeText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/blue"
-        style="?attr/materialButtonOutlinedStyle"
-        android:text="Open date picker"/>
+        android:textColor="@color/black"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:text="Open date picker"
+        android:textAlignment="textStart"
+        android:textSize="13sp"/>
 
     <Button
         android:id="@+id/timeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dateButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        style="?attr/materialButtonOutlinedStyle"
-        android:textColor="@color/blue"
-        android:text="Open time picker"/>
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/black"
+        android:text="Open time picker"
+        android:textAlignment="textStart"
+        android:textSize="13sp"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/nextButton"
+        android:layout_below="@+id/linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timeButton"
-        android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:background="@drawable/button"
         android:text="Post event"/>
 

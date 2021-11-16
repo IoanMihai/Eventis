@@ -17,13 +17,15 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ImageView image;
     public LinearLayout root;
     public Button button;
+    public Context context;
 
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.list_title);
         root = itemView.findViewById(R.id.list_root);
         description = itemView.findViewById(R.id.list_desc);
-        image = itemView.findViewById(R.id.list_image);
+        button = itemView.findViewById(R.id.list_button);
+        this.context = context;
     }
 
     public void setTitle(String string){
@@ -35,11 +37,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
 
+    public void setImage(Context ctx, String img){
+        Glide.with(ctx).load(img).centerCrop().into(image);
+    }
+
     public ImageView getImage(){
         return image;
     }
 
-    public void setImage(Context ctx, String img){
-        Glide.with(ctx).load(img).into(image);
-    }
 }

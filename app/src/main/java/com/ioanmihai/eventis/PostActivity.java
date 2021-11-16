@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +41,7 @@ public class PostActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private ImageButton selectEventImage;
     private String Description, Title;
-    private CheckBox checkGames, checkMusic, checkPolitical, checkNature, checkOther;
+    private CheckBox checkGames, checkMusic, checkPolitical, checkNature, checkOther, checkWebinar, checkConference, checkTech, checkBusiness;
     private Uri ImageUri;
 
     private static final int Gallery_Pick = 1;
@@ -66,13 +67,16 @@ public class PostActivity extends AppCompatActivity {
         selectEventImage = findViewById(R.id.eventImage);
         postButton = findViewById(R.id.post_next_button);
         titleEdit = findViewById(R.id.titleEdit);
-        postEdit = findViewById(R.id.descriptionEdit);
         loadingBar = new ProgressDialog(this);
         checkGames = findViewById(R.id.checkboxGames);
         checkMusic = findViewById(R.id.checkboxMusic);
         checkPolitical = findViewById(R.id.checkboxPolitical);
         checkNature = findViewById(R.id.checkboxNature);
         checkOther = findViewById(R.id.checkboxOther);
+        checkWebinar = findViewById(R.id.checkboxWebinar);
+        checkConference = findViewById(R.id.checkboxConference);
+        checkTech = findViewById(R.id.checkboxTech);
+        checkBusiness = findViewById(R.id.checkboxBusiness);
 
         selectEventImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,35 +96,47 @@ public class PostActivity extends AppCompatActivity {
 
     private void ValidateEventInfo() {
         Title = titleEdit.getText().toString();
-        Description = postEdit.getText().toString();
         int nr = 0;
-        if (checkGames.isChecked()){
+        if (checkGames.isChecked()) {
+            nr++;
+        }
+        if (checkMusic.isChecked()) {
+            nr++;
+        }
+        if (checkPolitical.isChecked()) {
+            nr++;
+        }
+        if (checkNature.isChecked()) {
+            nr++;
+        }
+        if (checkOther.isChecked()) {
+            nr++;
+        }
+        if (checkBusiness.isChecked()){
             nr ++;
         }
-        if (checkMusic.isChecked()){
+        if (checkTech.isChecked()){
             nr ++;
         }
-        if (checkPolitical.isChecked()){
+        if (checkConference.isChecked()){
             nr ++;
         }
-        if (checkNature.isChecked()){
+        if (checkWebinar.isChecked()){
             nr ++;
         }
-        if (checkOther.isChecked()){
-            nr ++;
-        }
-
-        if (ImageUri == null){
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        // 35 si 148
+        if (ImageUri == null) {
             Toast.makeText(this, "Please select event image...", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(Description)){
-            Toast.makeText(this, "Please say something about your event...", Toast.LENGTH_SHORT).show();
-        }else if (nr == 0){
+        } else if (nr == 0) {
             Toast.makeText(this, "Please tell us what kind of event this is...", Toast.LENGTH_SHORT).show();
-        }else if (nr > 1){
+        } else if (nr > 1) {
             Toast.makeText(this, "Please select only one type of event...", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(Title)){
+        } else if (TextUtils.isEmpty(Title)) {
             Toast.makeText(this, "Please select a title for your event...", Toast.LENGTH_SHORT).show();
-        }else{
+        } else if (Title.length() > 35) {
+            Toast.makeText(this, "The title is longer than 35 characters...", Toast.LENGTH_SHORT).show();
+        }else {
             loadingBar.setTitle("Saving Information");
             loadingBar.setMessage("Please wait, while we are creating your new event...");
             loadingBar.show();
@@ -137,10 +153,10 @@ public class PostActivity extends AppCompatActivity {
         saveCurrentDate = currentDate.format(date.getTime());
 
         Calendar time = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
         saveCurrentTime = currentTime.format(time.getTime());
 
-        eventRandomName = saveCurrentDate + saveCurrentTime;
+        eventRandomName = current_user_id + saveCurrentDate + saveCurrentTime;
 
         StorageReference filePath = EventsImagesReference.child("Event Images").child(ImageUri.getLastPathSegment() + eventRandomName + ".jpg");
         filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -170,12 +186,17 @@ public class PostActivity extends AppCompatActivity {
                     boolean political = checkPolitical.isChecked();
                     boolean nature = checkNature.isChecked();
                     boolean other = checkOther.isChecked();
+                    boolean business = checkBusiness.isChecked();
+                    boolean conferece = checkConference.isChecked();
+                    boolean webinar = checkWebinar.isChecked();
+                    boolean tech = checkTech.isChecked();
+
 
                     HashMap<String, Object> eventsMap = new HashMap<>();
                     eventsMap.put("uid", current_user_id);
+                    eventsMap.put("name", eventRandomName);
                     eventsMap.put("date", saveCurrentDate);
                     eventsMap.put("time", saveCurrentTime);
-                    eventsMap.put("description", Description);
                     eventsMap.put("title", Title);
                     eventsMap.put("postimage", downloadUrl);
                     eventsMap.put("fullname", userFullName);
@@ -184,8 +205,13 @@ public class PostActivity extends AppCompatActivity {
                     eventsMap.put("political", political);
                     eventsMap.put("nature", nature); 
                     eventsMap.put("other", other);
+                    eventsMap.put("business", business);
+                    eventsMap.put("tech", tech);
+                    eventsMap.put("webinar", webinar);
+                    eventsMap.put("conference", conferece);
 
-                    EventsRef.child(current_user_id + eventRandomName).updateChildren(eventsMap)
+
+                    EventsRef.child(eventRandomName).updateChildren(eventsMap)
                             .addOnCompleteListener(new OnCompleteListener() {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
@@ -228,7 +254,7 @@ public class PostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null){
             ImageUri = data.getData();
-            selectEventImage.setImageURI(ImageUri);
+            Glide.with(PostActivity.this).load(ImageUri).centerCrop().into(selectEventImage);
         }
     }
 

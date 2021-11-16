@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Games"
-            android:checked="false"/>
+            android:checked="false" />
 
         <CheckBox
             android:id="@+id/checkboxMusic"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="Music"
             android:layout_toRightOf="@+id/checkboxGames"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="15dp" />
 
         <CheckBox
             android:id="@+id/checkboxPolitical"
@@ -88,12 +88,46 @@
             android:layout_below="@+id/checkboxGames"/>
 
         <CheckBox
+            android:id="@+id/checkboxTech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tech"
+            android:layout_below="@+id/checkboxPolitical"
+            android:layout_toRightOf="@+id/checkboxNature"
+            android:layout_marginLeft="15dp"/>
+
+        <CheckBox
+            android:id="@+id/checkboxBusiness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Business"
+            android:layout_below="@id/checkboxPolitical"
+            android:layout_toRightOf="@+id/checkboxTech"
+            android:layout_marginLeft="15dp"/>
+
+        <CheckBox
+            android:id="@+id/checkboxWebinar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Webinar"
+            android:layout_below="@+id/checkboxNature" />
+
+        <CheckBox
+            android:id="@+id/checkboxConference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Conference"
+            android:layout_below="@+id/checkboxNature"
+            android:layout_toRightOf="@+id/checkboxWebinar"
+            android:layout_marginLeft="15dp"/>
+
+        <CheckBox
             android:id="@+id/checkboxOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Other"
-            android:layout_toRightOf="@+id/checkboxNature"
-            android:layout_below="@+id/checkboxGames"
+            android:layout_toRightOf="@+id/checkboxConference"
+            android:layout_below="@+id/checkboxNature"
             android:layout_marginLeft="15dp"/>
 
     </RelativeLayout>

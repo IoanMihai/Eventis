@@ -1,12 +1,12 @@
 package com.ioanmihai.eventis;
 
 public class Posts {
-    public String date, description, eventDate, eventTime, fullname, postimage, time, title, uid;
-    public boolean games, music, nature, other, political;
+    public String date, description, eventDate, eventTime, fullname, postimage, time, title, uid, name;
+    public boolean games, music, nature, other, political, webinar, conference, tech, business;
 
     public Posts() { }
 
-    public Posts(String date, String description, String eventDate, String eventTime, String fullname, String postimage, String time, String title, String uid, boolean games, boolean music, boolean nature, boolean other, boolean political) {
+    public Posts(String date, String description, String eventDate, String eventTime, String fullname, String postimage, String time, String title, String uid, String name, boolean games, boolean music, boolean nature, boolean other, boolean political, boolean webinar, boolean conference, boolean tech, boolean business) {
         this.date = date;
         this.description = description;
         this.eventDate = eventDate;
@@ -16,11 +16,55 @@ public class Posts {
         this.time = time;
         this.title = title;
         this.uid = uid;
+        this.name = name;
         this.games = games;
         this.music = music;
         this.nature = nature;
         this.other = other;
         this.political = political;
+        this.webinar = webinar;
+        this.conference = conference;
+        this.tech = tech;
+        this.business = business;
+    }
+
+    public Posts(String uid, String title, String description, String eventName) {
+    }
+
+    public boolean isWebinar() {
+        return webinar;
+    }
+
+    public void setWebinar(boolean webinar) {
+        this.webinar = webinar;
+    }
+
+    public boolean isConference() {
+        return conference;
+    }
+
+    public void setConference(boolean conference) {
+        this.conference = conference;
+    }
+
+    public boolean isTech() {
+        return tech;
+    }
+
+    public void setTech(boolean tech) {
+        this.tech = tech;
+    }
+
+    public boolean isBusiness() {
+        return business;
+    }
+
+    public void setBusiness(boolean business) {
+        this.business = business;
+    }
+
+    public String getEventName() {
+        return name;
     }
 
     public String getDate() {

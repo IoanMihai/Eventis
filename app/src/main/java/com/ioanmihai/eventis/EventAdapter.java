@@ -69,7 +69,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
 
             title = itemView.findViewById(R.id.list_title);
             description = itemView.findViewById(R.id.list_desc);
-            image = itemView.findViewById(R.id.list_image);
+            /*image = itemView.findViewById(R.id.list_image);*/
         }
     }
 

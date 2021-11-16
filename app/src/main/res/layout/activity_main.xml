@@ -11,13 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/main_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true">
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/for_you"
                 android:layout_width="match_parent"
@@ -28,11 +21,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:layout_gravity="end|bottom"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_add_event_foreground"/>
 
-        </FrameLayout>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
